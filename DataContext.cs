@@ -12,6 +12,14 @@ public class DataContext : DbContext
         Configuration = configuration;
     }
 
+    public DataContext()
+    {
+        Configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
